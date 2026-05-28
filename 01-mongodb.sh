@@ -4,7 +4,7 @@ LOGS_FOLDER="/VAR/LOG/ROBOSHOP"
 sudo mkdir -p $LOGS_FOLDER
 sudo chown -R ec2-user:ec2-user $LOGS_FOLDER
 sudo chmod -R 755 $LOGS_FOLDER
-LODS_FILE="$LOGS_FOLDER/$0.log"
+LOGS_FILE="$LOGS_FOLDER/$0.log
 
 USERID=$(id -u)
 R="\e[31m"
@@ -18,7 +18,6 @@ if [ $USERID -ne 0 ]; then
      exit 1
 fi 
 
-
 VALIDATE(){
     if [ $1 -ne 0 ]; then 
         echo -e "$TIMESTAMP [ERROR] $2 ... $R FAILURE $N" | tee -a $LOGS_FILE
@@ -26,13 +25,13 @@ VALIDATE(){
     else 
         echo -e "$TIMESTAMP [INFO] $2 ... $G SUCCESS  $N" | tee -a $LOGS_FILE
     fi 
-
 }
 
 cp mongo.repo /etc/yum.repos.d/mongo.repo
 VALIDATE $? "Adding Mongo repo" 
 
-dnf install mongodb-org -y $>> $LOG_FILE 
+dnf install mongodb-org -y &>> $LOG_FILE 
 VALIDATE $? "Installing MongoDB"
+
 
 
